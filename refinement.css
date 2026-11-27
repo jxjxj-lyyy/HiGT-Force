@@ -1,0 +1,34 @@
+/* Quiet geometry, restrained color, and an editorial hierarchy. */
+:root{--ink:#182d40;--accent:#117c80;--line:#e0e8eb}
+body{background:#fcfdfd;font-family:"Segoe UI",Arial,Helvetica,sans-serif}
+header{padding-top:16px;padding-bottom:16px;background:#fcfdfdf0}
+nav{gap:8px}nav a{padding:6px 14px;border-radius:30px;transition:background .2s,color .2s}nav a:hover{background:#eaf3f2}
+.nav-link{border:1px solid var(--line);padding:6px 15px;border-radius:30px}
+.hero{position:relative;isolation:isolate;padding:90px 0 58px!important;border:0}
+.hero:before{content:"";position:absolute;z-index:-1;inset:12px -25px 0;background:radial-gradient(ellipse at 30% 35%,#e2f2ee99,transparent 55%),radial-gradient(ellipse at 75% 30%,#e6edf999,transparent 50%);border-radius:50%}
+.hero:after{content:"";position:absolute;z-index:-1;width:280px;height:200px;top:45px;right:15px;background-image:radial-gradient(#9fbdbb66 1px,transparent 1px);background-size:18px 18px;mask-image:linear-gradient(130deg,transparent,#000,transparent);opacity:.5;pointer-events:none}
+.hero .eyebrow{display:inline-block;border:1px solid #ccdfdc;background:#ffffffb0;border-radius:30px;padding:6px 16px;font-size:12px;letter-spacing:1.8px;margin-bottom:27px}
+.hero h1{font-weight:800;font-size:clamp(65px,9vw,112px);letter-spacing:-6px;line-height:1.06;margin-bottom:25px}
+.hero h1 .title-hyphen{color:#90b7b4}.hero h1 .title-force{color:var(--accent)}
+.paper-title{max-width:820px;font-size:clamp(23px,2.8vw,32px);letter-spacing:-.7px;line-height:1.4}
+.hero .lede{max-width:660px;font-size:17px;line-height:1.8}.hero .buttons{margin-top:30px;gap:12px}
+.button{border-radius:30px;padding:11px 19px;background:white;font-size:14px;min-height:46px}.button small{font-size:12px}.button.primary{background:var(--ink);box-shadow:0 5px 14px #17344216;transition:background .2s,box-shadow .2s}.button.primary:hover{background:var(--accent);box-shadow:0 7px 18px #117c8028}
+.metrics{position:relative;background:#fff;border:1px solid var(--line);border-radius:18px;box-shadow:0 12px 32px #183e4b06;padding:28px 8px;gap:0;margin-top:10px}.metrics>div{padding:0 24px;border-right:1px solid var(--line)}.metrics>div:last-child{border:0}.metrics strong{font-size:36px;font-weight:650;font-variant-numeric:tabular-nums;letter-spacing:-1.4px;margin-bottom:5px}.metrics>div:nth-child(3) strong{color:var(--accent)}.metrics div>span{font-size:14px;line-height:1.5;display:block}.metrics strong span{font-size:19px}
+section:not(.hero){padding-top:85px;padding-bottom:65px}.eyebrow{letter-spacing:2px;font-size:12px}.section-heading{gap:70px;margin-bottom:35px}.section-heading p{font-size:16px;line-height:1.85}h2{font-weight:650;letter-spacing:-1.5px;font-size:38px}
+.figure{background:#fff;border:1px solid #e1e8eb;border-radius:16px;padding:18px;box-shadow:0 10px 28px #17344205;transition:box-shadow .2s,border-color .2s}.figure:hover{border-color:#a6c6c2;box-shadow:0 12px 32px #1734420d}.cases-figure{padding:10px}.caption{margin-top:17px;line-height:1.75}
+.method-grid{gap:18px}.method-grid article{background:#fff;border:1px solid var(--line);border-radius:14px;padding:25px;position:relative;overflow:hidden}.method-grid article:before{content:"";position:absolute;top:0;left:25px;width:40px;height:3px;background:#c78e58}.method-grid article:nth-child(2):before{background:#39978d}.method-grid article:nth-child(3):before{background:#6b88b7}.tag{font-size:12px}.method-grid article:nth-child(3) .tag{color:#5273a2}.method-grid h3{font-size:20px;font-weight:650}.method-grid p{font-size:15px;line-height:1.8;margin-bottom:0}
+.switch{width:fit-content;background:#edf2f3;padding:5px;border-radius:12px;gap:4px}.switch button{border:0;background:transparent;border-radius:8px;padding:9px 17px;transition:background .15s}.switch button[aria-pressed=true]{background:white;color:var(--ink);box-shadow:0 2px 7px #183e4b14}.switch button:hover{color:var(--accent)}
+.pipeline{background:linear-gradient(115deg,#eef7f4,#f1f5fa);border:1px solid #dce9e6;border-radius:14px;padding:28px 32px}.pipeline strong{font-weight:650}.pipeline p{font-size:16px;line-height:1.8}.flow{font-weight:600}
+.table-wrap{background:white;border-radius:14px}th,td{padding:20px 24px}thead{background:#f1f5f7}.ours{background:#edf7f3}.ours td:first-child{box-shadow:inset 3px 0 var(--accent)}.footnote{padding-left:16px;border-left:2px solid #bfd6d0;margin-top:25px}
+section.resources{margin:50px 0 15px;padding:50px 30px;border:1px solid #dfe9e7;border-radius:20px;background:linear-gradient(120deg,#f0f7f4,#f2f5fa)}.resources h2{margin-bottom:15px}.resource-row{gap:0;max-width:650px;margin:30px auto 0}.resource-row>span{flex:1;border-right:1px solid #d7e3e2;font-size:17px}.resource-row>span:last-child{border:0}.resource-row small{font-size:14px;margin-top:3px}footer{padding-top:30px;padding-bottom:30px}
+@media(max-width:800px){header{padding:14px 18px}nav{gap:0}nav a{padding:5px 8px}.hero{padding:55px 0 35px!important}.hero:before{inset:0}.hero:after{width:150px;right:0}.hero h1{letter-spacing:-3.5px}.hero .eyebrow{font-size:11px;letter-spacing:1px}.metrics{padding:8px 0}.metrics>div{padding:20px}.metrics>div:nth-child(2){border-right:0}.metrics>div:nth-child(-n+2){border-bottom:1px solid var(--line)}.metrics strong{font-size:32px}.metrics div>span{font-size:13px}.section-heading{gap:0}.method-grid article{padding:24px}.figure{padding:7px}.cases-figure{padding:4px}section:not(.hero){padding-top:55px;padding-bottom:45px}h2{font-size:31px}.switch button{padding:9px 12px;font-size:14px}.pipeline{padding:23px}.resources{margin-top:30px!important}.resource-row small{font-size:12px}}
+@media(max-width:420px){.brand{font-size:20px}nav a{font-size:12px;padding:5px 6px}.metrics>div{padding:16px}.metrics strong{font-size:28px}.metrics strong span{font-size:16px}}
+@media(prefers-reduced-motion:reduce){*{transition:none!important}}
+
+/* Compact benchmark comparisons. */
+#result-table table{font-size:14px;font-variant-numeric:tabular-nums;line-height:1.35}#result-table th,#result-table td{padding:8px 12px}#result-table th{font-size:12px}#result-table td:not(:first-child),#result-table th:not(:first-child){text-align:right}#results .section-heading{margin-bottom:18px}#results .switch{margin:18px 0}#result-table .table-note{font-size:13px;line-height:1.65}@media(max-width:800px){#result-table th,#result-table td{padding:8px 10px}}
+
+/* Benchmark separator only; no extra rule in ablation or selection. */
+#result-table [data-table="navsim"] tbody tr:nth-last-child(2) td,
+#result-table [data-table="v1"] tbody tr:nth-last-child(2) td,
+#result-table [data-table="bench"] tbody tr:nth-last-child(2) td{border-top:2px solid #cbdcda}
