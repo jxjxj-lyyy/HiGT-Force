@@ -3,4 +3,29 @@ Object.assign(tables,{"navsim": {"heads": ["Method", "Backbone", "NC ↑", "DAC 
 
 function setResult(key){const t=tables[key];document.querySelector('#result-table').innerHTML=`<div class="table-wrap" data-table="${key}" tabindex="0" role="region" aria-label="${key} results"><table><thead><tr>${t.heads.map(h=>`<th scope="col">${h}</th>`).join('')}</tr></thead><tbody>${t.rows.map(r=>`<tr class="${r[0]==='HiGT-Force'?'ours':''}">${r.map(v=>`<td>${v}</td>`).join('')}</tr>`).join('')}</tbody></table></div><p class="table-note">${t.note}</p>`;document.querySelectorAll('[data-result]').forEach(b=>b.setAttribute('aria-pressed',b.dataset.result===key));}
 function setMode(key){const training=key==='training';document.querySelector('#pipeline').innerHTML=training?'<strong>Teach the visual representations</strong><div class="flow">Frozen DA3 + frozen V-JEPA 2 · FPN levels 4 / 8 / 16 / 32</div><p>Optimize geometric alignment, temporal relation matching and planning together. Teachers stay frozen; student features and projection heads learn.</p>':'<strong>Deploy the student planner</strong><div class="flow">Current multi-camera images + ego state · Student planner · Selected trajectory</div><p>Remove both teachers and all projection heads. Keep the original Baseline inference pipeline, with no additional historical-image processing.</p>';document.querySelectorAll('[data-mode]').forEach(b=>b.setAttribute('aria-pressed',b.dataset.mode===key));}
-document.querySelectorAll('[data-result]').forEach(b=>b.addEventListener('click',()=>setResult(b.dataset.result)));document.querySelectorAll('[data-mode]').forEach(b=>b.addEventListener('click',()=>setMode(b.dataset.mode)));setResult('navsim');setMode('training');
+document.querySelectorAll('[data-result]').forEach(b=>b.addEventListener('click',()=>smoothUpdate(document.querySelector('#result-table'),()=>setResult(b.dataset.result))));document.querySelectorAll('[data-mode]').forEach(b=>b.addEventListener('click',()=>smoothUpdate(document.querySelector('#pipeline'),()=>setMode(b.dataset.mode))));setResult('navsim');setMode('training');
+
+// Section tracking is progressive enhancement; content remains visible without it.
+const progress=document.querySelector('.reading-progress');
+function updateProgress(){const distance=document.documentElement.scrollHeight-window.innerHeight;progress.style.transform=`scaleX(${distance>0?window.scrollY/distance:0})`;}
+window.addEventListener('scroll',updateProgress,{passive:true});window.addEventListener('resize',updateProgress);updateProgress();
+if('IntersectionObserver' in window){const navigation=document.querySelectorAll('nav a');const observer=new IntersectionObserver(entries=>{entries.forEach(entry=>{if(entry.isIntersecting){navigation.forEach(link=>{if(link.getAttribute('href')==='#'+entry.target.id){link.setAttribute('aria-current','location');}else{link.removeAttribute('aria-current');}});}});},{rootMargin:'-15% 0px -65% 0px',threshold:0});document.querySelectorAll('main section[id]').forEach(section=>observer.observe(section));}
+
+function smoothUpdate(container,update){
+ container.getAnimations().forEach(animation=>animation.cancel());
+ update();
+ if(!window.matchMedia('(prefers-reduced-motion: reduce)').matches){container.animate([{opacity:.45,transform:'translateY(4px)'},{opacity:1,transform:'translateY(0)'}],{duration:200,easing:'ease-out'});}
+}
+const viewer=document.querySelector('.image-viewer');
+if(typeof viewer.showModal==='function'){
+ document.querySelectorAll('a.figure').forEach(link=>link.addEventListener('click',event=>{
+  if(event.ctrlKey||event.metaKey||event.shiftKey||event.altKey)return;
+  event.preventDefault();const source=link.querySelector('img');
+  document.querySelector('#viewer-image').src=source.src;document.querySelector('#viewer-image').alt=source.alt;
+  document.querySelector('#viewer-pdf').href=link.href;
+  document.querySelector('#viewer-title').textContent=link.closest('section').querySelector('h2').textContent;
+  viewer.showModal();viewer.querySelector('.viewer-scroll').scrollTop=0;
+ }));
+ viewer.querySelector('.viewer-close').addEventListener('click',()=>viewer.close());
+ viewer.addEventListener('click',event=>{if(event.target===viewer){const rect=viewer.getBoundingClientRect();if(event.clientX<rect.left||event.clientX>rect.right||event.clientY<rect.top||event.clientY>rect.bottom)viewer.close();}});
+}
